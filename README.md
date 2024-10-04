@@ -24,6 +24,29 @@ EMAIL\_PASSWORD
 
 JWT\_SECRET
 
+# file Structure
+
+/project-root
+|-- .env
+|-- .gitignore
+|-- package.json
+|-- app.js
+|-- server.js
+|-- /config
+|   |-- config.js
+|-- /controllers
+|   |-- authController.js
+|   |-- bookController.js
+|-- /middleware
+|   |-- authMiddleware.js
+|-- /models
+|   |-- userModel.js
+|   |-- bookModel.js
+|-- /routes
+    |-- authRoutes.js
+    |-- bookRoutes.js
+
+
 # follow the following routes to explore the applications make sure you have postMan downloaded to test the following routes
 
 # Create User
