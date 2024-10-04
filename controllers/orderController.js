@@ -1,33 +1,35 @@
-const User = require('../models/User.js');
-const Order = require('../models/Order.js');
-const Book = require('../models/bookModel.js');
+const User = require("../models/User.js");
+const Order = require("../models/Order.js");
+const Book = require("../models/bookModel.js");
 
 exports.buyBook = async (req, res) => {
   const { bookId, address } = req.body;
 
-  if (!address || address.trim() === '') {
-    return res.status(400).json({ msg: 'Address is Required' });
+  if (!address || address.trim() === "") {
+    return res.status(400).json({ msg: "Address is Required" });
   }
   if (!bookId) {
-    return res.status(400).json({ msg: 'Book ID is required' });
+    return res.status(400).json({ msg: "Book ID is required" });
   }
 
   try {
     const userId = Object.values(req.user)[0].id;
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ msg: 'User not found' });
+      return res.status(404).json({ msg: "User not found" });
     }
 
     const book = await Book.findById(bookId);
     if (!book) {
-      return res.status(404).json({ msg: 'Book not found' });
+      return res.status(404).json({ msg: "Book not found" });
     }
 
     // Check if the book is in the user's cart
-    const cartItem = user.cart.find(item => item.bookId.toString() === bookId);
+    const cartItem = user.cart.find(
+      (item) => item.bookId.toString() === bookId
+    );
     if (!cartItem) {
-      return res.status(400).json({ msg: 'Book not found in your cart' });
+      return res.status(400).json({ msg: "Book not found in your cart" });
     }
 
     // Get the quantity from the cart
@@ -48,7 +50,7 @@ exports.buyBook = async (req, res) => {
       price: book.price,
       quantity: quantity, // Include quantity in the order
       totalPrice: totalPrice, // Save total price
-      address: address
+      address: address,
     });
 
     // Save the order
@@ -58,13 +60,13 @@ exports.buyBook = async (req, res) => {
     user.orders.push(order._id);
 
     // Remove the purchased book from the cart
-    user.cart = user.cart.filter(item => item.bookId.toString() !== bookId); 
+    user.cart = user.cart.filter((item) => item.bookId.toString() !== bookId);
     await user.save();
 
-    res.json({ msg: 'Book purchased successfully', order });
+    res.json({ msg: "Book purchased successfully", order });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ msg: 'Server error', error: error.message });
+    res.status(500).json({ msg: "Server error", error: error.message });
   }
 };
 
@@ -73,36 +75,38 @@ exports.cancelOrder = async (req, res) => {
   const { orderId } = req.body;
 
   if (!orderId) {
-    return res.status(400).json({ msg: 'Order ID is required' });
+    return res.status(400).json({ msg: "Order ID is required" });
   }
 
   try {
     const userId = Object.values(req.user)[0].id;
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ msg: 'User not found' });
+      return res.status(404).json({ msg: "User not found" });
     }
 
     const order = await Order.findById(orderId);
     if (!order) {
-      return res.status(404).json({ msg: 'Order not found' });
+      return res.status(404).json({ msg: "Order not found" });
     }
 
     if (order.userId.toString() !== userId) {
-      return res.status(403).json({ msg: 'You are not authorized to cancel this order' });
+      return res
+        .status(403)
+        .json({ msg: "You are not authorized to cancel this order" });
     }
 
     // Delete the order
     await Order.findByIdAndDelete(orderId);
 
     // Remove the order ID from the user's orders array
-    user.orders = user.orders.filter(id => id.toString() !== orderId);
+    user.orders = user.orders.filter((id) => id.toString() !== orderId);
     await user.save();
 
-    res.json({ msg: 'Order canceled successfully' });
+    res.json({ msg: "Order canceled successfully" });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ msg: 'Server error', error: error.message });
+    res.status(500).json({ msg: "Server error", error: error.message });
   }
 };
 
@@ -111,9 +115,9 @@ exports.listOrders = async (req, res) => {
   try {
     const userId = Object.values(req.user)[0].id;
     const user = await User.findById(userId);
-    
+
     if (!user) {
-      return res.status(404).json({ msg: 'User not found' });
+      return res.status(404).json({ msg: "User not found" });
     }
 
     // Fetching the orders directly without population
@@ -122,54 +126,81 @@ exports.listOrders = async (req, res) => {
     res.json({ orders });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ msg: 'Server error', error: error.message });
+    res.status(500).json({ msg: "Server error", error: error.message });
   }
 };
 
 // Update order
 exports.updateOrder = async (req, res) => {
-  const { orderId, address, quantity, _id, userId, genre, authorName, bookName, ISBN, rate, image, totalPrice, price } = req.body;
+  const {
+    orderId,
+    address,
+    quantity,
+    _id,
+    userId,
+    genre,
+    authorName,
+    bookName,
+    ISBN,
+    rate,
+    image,
+    totalPrice,
+    price,
+  } = req.body;
 
-  if(_id || userId || genre || authorName || bookName || ISBN || rate || image || totalPrice || price){
-    return res.status(400).json({msg:'Fields are not Allowed to change'})
+  if (
+    _id ||
+    userId ||
+    genre ||
+    authorName ||
+    bookName ||
+    ISBN ||
+    rate ||
+    image ||
+    totalPrice ||
+    price
+  ) {
+    return res.status(400).json({ msg: "Fields are not Allowed to change" });
   }
 
   if (!orderId) {
-    return res.status(400).json({ msg: 'Order ID is required' });
+    return res.status(400).json({ msg: "Order ID is required" });
   }
 
   try {
     const userId = Object.values(req.user)[0].id;
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ msg: 'User not found' });
+      return res.status(404).json({ msg: "User not found" });
     }
 
     const order = await Order.findById(orderId);
     if (!order) {
-      return res.status(404).json({ msg: 'Order not found' });
+      return res.status(404).json({ msg: "Order not found" });
     }
 
     if (order.userId.toString() !== userId) {
-      return res.status(403).json({ msg: 'You are not authorized to update this order' });
+      return res
+        .status(403)
+        .json({ msg: "You are not authorized to update this order" });
     }
 
     // Update the order details if provided
     if (address) {
-      order.address = address; 
+      order.address = address;
     }
 
-    if(quantity){
+    if (quantity) {
       order.quantity = quantity;
-      order.totalPrice = 0
+      order.totalPrice = 0;
       order.totalPrice = quantity * order.price;
     }
-    
+
     // Save the updated order
     await order.save();
-    res.json({ msg: 'Order updated successfully', order });
+    res.json({ msg: "Order updated successfully", order });
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ msg: 'Server error', error: error.message });
+    res.status(500).json({ msg: "Server error", error: error.message });
   }
 };

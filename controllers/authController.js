@@ -79,7 +79,7 @@ exports.signup = async (req, res) => {
   }
 };
 
-// verify OTP 
+// verify OTP
 exports.verifyOTP = async (req, res) => {
   const { email, otp } = req.body;
 
@@ -100,25 +100,29 @@ exports.verifyOTP = async (req, res) => {
 
     // Check if OTP matches
     if (user.otp !== otp) {
-      user.otpAttempts += 1; 
+      user.otpAttempts += 1;
 
       // If user exceeds 5 failed attempts, delete the user
       if (user.otpAttempts > 5) {
-        await User.findByIdAndDelete(user._id); 
-        return res.status(400).json({ msg: "Too many failed attempts. User deleted." });
+        await User.findByIdAndDelete(user._id);
+        return res
+          .status(400)
+          .json({ msg: "Too many failed attempts. User deleted." });
       }
 
       // Save the updated user with the new attempt count
       await user.save();
-      return res.status(400).json({ 
-        msg: `Invalid OTP. You have ${5 - user.otpAttempts} attempts remaining.` 
+      return res.status(400).json({
+        msg: `Invalid OTP. You have ${
+          5 - user.otpAttempts
+        } attempts remaining.`,
       });
     }
 
     // Reset OTP and verification attempts if successful
     user.otp = null;
-    user.otpAttempts = 0; 
-    await user.save(); 
+    user.otpAttempts = 0;
+    await user.save();
 
     res.status(200).json({ msg: "SignUp Successful" });
   } catch (error) {
@@ -126,8 +130,6 @@ exports.verifyOTP = async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 };
-
-
 
 // Login Logic
 exports.login = async (req, res) => {

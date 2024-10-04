@@ -1,21 +1,21 @@
-const sharp = require('sharp');
-const Book = require('../models/bookModel.js'); 
+const sharp = require("sharp");
+const Book = require("../models/bookModel.js");
 const User = require("../models/User.js");
 
 // Add a new book (admin only)
 exports.addBook = async (req, res) => {
   // console.log("Request Body:", req.body); // Debugging
-  const { genre, authorName, bookName, ISBN, rate, price} = req.body;
+  const { genre, authorName, bookName, ISBN, rate, price } = req.body;
 
   // Validate required fields
   if (!genre || !authorName || !bookName || !ISBN || !price) {
-    return res.status(400).json({ msg: 'All fields are required.' });
+    return res.status(400).json({ msg: "All fields are required." });
   }
 
   const userDetails = await User.findById(Object.values(req.user)[0].id);
   // console.log(userDetails); // DBug
   if (!userDetails || !userDetails.admin) {
-    return res.status(403).json({ msg: 'Access denied. Admins only.' });
+    return res.status(403).json({ msg: "Access denied. Admins only." });
   }
 
   try {
@@ -41,13 +41,13 @@ exports.addBook = async (req, res) => {
 
     await newBook.save();
     userDetails.myBooks.push(newBook._id);
-    await userDetails.save(); 
-    res.status(201).json({ msg: 'Book added', book: newBook });
+    await userDetails.save();
+    res.status(201).json({ msg: "Book added", book: newBook });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ msg: 'Server error', error: error.message });
+    res.status(500).json({ msg: "Server error", error: error.message });
   }
-}
+};
 
 // List all books (accessible to all users)
 exports.listBooks = async (req, res) => {
@@ -56,7 +56,7 @@ exports.listBooks = async (req, res) => {
     res.json(books);
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ msg: 'Server error', error: error.message });
+    res.status(500).json({ msg: "Server error", error: error.message });
   }
 };
 
@@ -67,7 +67,7 @@ exports.updateBook = async (req, res) => {
 
   const userDetails = await User.findById(Object.values(req.user)[0].id);
   if (!userDetails || !userDetails.admin) {
-    return res.status(403).json({ msg: 'Access denied. Admins only.' });
+    return res.status(403).json({ msg: "Access denied. Admins only." });
   }
 
   try {
@@ -77,7 +77,7 @@ exports.updateBook = async (req, res) => {
       bookName,
       ISBN,
       rate,
-      price
+      price,
     };
 
     // Check if an image was uploaded
@@ -86,15 +86,17 @@ exports.updateBook = async (req, res) => {
       updatedData.image = `uploads/${image.filename}`;
     }
 
-    const updatedBook = await Book.findByIdAndUpdate(id, updatedData, { new: true });
+    const updatedBook = await Book.findByIdAndUpdate(id, updatedData, {
+      new: true,
+    });
     if (!updatedBook) {
-      return res.status(404).json({ msg: 'Book not found' });
+      return res.status(404).json({ msg: "Book not found" });
     }
 
     res.status(200).json(updatedBook);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ msg: 'Server error', error: error.message });
+    res.status(500).json({ msg: "Server error", error: error.message });
   }
 };
 
@@ -103,19 +105,19 @@ exports.deleteBook = async (req, res) => {
   const { id } = req.params;
   const userDetails = await User.findById(Object.values(req.user)[0].id);
   if (!userDetails || !userDetails.admin) {
-    return res.status(403).json({ msg: 'Access denied. Admins only.' });
+    return res.status(403).json({ msg: "Access denied. Admins only." });
   }
 
   try {
     const deletedBook = await Book.findByIdAndDelete(id);
     if (!deletedBook) {
-      return res.status(404).json({ msg: 'Book not found' });
+      return res.status(404).json({ msg: "Book not found" });
     }
 
-    res.status(200).json({ msg: 'Book deleted' });
+    res.status(200).json({ msg: "Book deleted" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ msg: 'Server error', error: error.message });
+    res.status(500).json({ msg: "Server error", error: error.message });
   }
 };
 
@@ -125,7 +127,7 @@ exports.searchBooks = async (req, res) => {
 
   // Validate input
   if (!search) {
-    return res.status(400).json({ msg: 'Search term is required' });
+    return res.status(400).json({ msg: "Search term is required" });
   }
 
   try {
@@ -135,7 +137,7 @@ exports.searchBooks = async (req, res) => {
     const books = await Book.find();
 
     // Filter books based on the search criteria
-    const filteredBooks = books.filter(book => {
+    const filteredBooks = books.filter((book) => {
       return (
         book.authorName.toLowerCase().includes(lowerCaseSearch) ||
         book.bookName.toLowerCase().includes(lowerCaseSearch) ||
@@ -146,13 +148,15 @@ exports.searchBooks = async (req, res) => {
 
     // Check if any books were found
     if (filteredBooks.length === 0) {
-      return res.status(404).json({ msg: 'No books found matching the search criteria.' });
+      return res
+        .status(404)
+        .json({ msg: "No books found matching the search criteria." });
     }
 
     // Return the found books
     res.json(filteredBooks);
   } catch (error) {
     console.error(error.message);
-    res.status(500).json({ msg: 'Server error', error: error.message });
+    res.status(500).json({ msg: "Server error", error: error.message });
   }
 };

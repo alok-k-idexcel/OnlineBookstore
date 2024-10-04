@@ -20,20 +20,32 @@ exports.listUsers = async (req, res) => {
 
 // update the User
 exports.updateUser = async (req, res) => {
-  const { name, phone, address, password, confirmPassword} = req.body;
+  const { name, phone, address, password, confirmPassword } = req.body;
 
-    // Allowed fields
-    const allowedFields = ['name', 'phone', 'address', 'password', 'confirmPassword'];
+  // Allowed fields
+  const allowedFields = [
+    "name",
+    "phone",
+    "address",
+    "password",
+    "confirmPassword",
+  ];
 
-    // Get keys from request body
-    const requestBodyKeys = Object.keys(req.body);
+  // Get keys from request body
+  const requestBodyKeys = Object.keys(req.body);
 
-    // Check if all keys are allowed
-    const isValidUpdate = requestBodyKeys.every(key => allowedFields.includes(key));
+  // Check if all keys are allowed
+  const isValidUpdate = requestBodyKeys.every((key) =>
+    allowedFields.includes(key)
+  );
 
-    if (!isValidUpdate) {
-        return res.status(400).json({ msg: "You can only update: name, phone, address, password, confirmPassword" });
-    }
+  if (!isValidUpdate) {
+    return res
+      .status(400)
+      .json({
+        msg: "You can only update: name, phone, address, password, confirmPassword",
+      });
+  }
   // verify password
   if (password !== confirmPassword) {
     return res.status(400).json({ msg: "confirmPassword is not matching" });
@@ -62,7 +74,7 @@ exports.updateUser = async (req, res) => {
 
     // Update only the authenticated user's details
     user.name = name || user.name;
-    user.password = password || user.password 
+    user.password = password || user.password;
     user.phone = phone || user.phone;
     user.address = address || user.address;
 

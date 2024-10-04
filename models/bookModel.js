@@ -27,7 +27,7 @@ const bookSchema = new mongoose.Schema({
   },
   price: {
     type: Number,
-  }
+  },
 });
 
 // Create and export the book model
