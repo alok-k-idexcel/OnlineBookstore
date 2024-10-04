@@ -26,8 +26,8 @@ JWT\_SECRET
 
 # file Structure
 
-/project-root
-|-- .env
+/project-root <br>
+|-- .env <br>
 |-- .gitignore
 |-- package.json
 |-- app.js
