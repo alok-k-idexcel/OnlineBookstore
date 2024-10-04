@@ -1,10 +1,10 @@
-﻿online BookStore express/node application
+# ﻿online BookStore express/node application
 
-required softwares
+#required softwares
 
-POstman
+Postman
 
-how to run ?
+# how to run ?
 
 extract the zip file / clone the repo
 
@@ -14,7 +14,7 @@ npm i / npm install
 
 npm run dev
 
-.env file should contain
+# .env file should contain
 
 MONGO\_URI
 
@@ -24,19 +24,17 @@ EMAIL\_PASSWORD
 
 JWT\_SECRET
 
-follow the following routes to explore the applications make sure you have
+# follow the following routes to explore the applications make sure you have postMan downloaded to test the following routes
 
-postMan downloaded to test the following routes
-
-#Create User
+# Create User
 
 description - Creates a user and sends otp to verify email otp is generated
 
 use Math method of 6 digits
 
-1. Auth Routes
+# 1. Auth Routes
 
-1. SignUp
+# 1. SignUp
 
 Method : Post
 
@@ -69,7 +67,7 @@ Required Inputs Example :
 }
 
 
-1. Verify-otp
+# 1.1 Verify-otp
 
 Method : post
 
@@ -89,7 +87,7 @@ required inputs Example :
 
 }
 
-1. login
+# 1.2 login
 
 Method: Post
 
@@ -111,9 +109,9 @@ required inputs example:
 
 }
 
-1. user Operations
+# 2. user Operations
 
-1. User\_Update
+# 2.1 User_Update
 
 method: put
 
@@ -123,7 +121,7 @@ description: use to edit the user
 
 required inputs example : "You can only update: name, phone, address, password, confirmPassword"
 
-1. list users
+# 2.2 list users
 
 method: get
 
@@ -133,7 +131,7 @@ description: list all the user if you are admin
 
 no required inputs
 
-1. delete user
+# 2.3 delete user
 
 method: delete
 
@@ -143,9 +141,9 @@ description: deletes the current logged in user
 
 no required inputs
 
-1. bookRoutes
+# 3. bookRoutes
 
-1. add a book / create a book
+# 3.1 add a book / create a book
 
 method :Post
 
@@ -157,23 +155,23 @@ image upload and max size of image allowed is 1MB and will be resized by itself 
 
 required inputs example :
 
-Body form-data
+Body                   form-data
 
-bookName - To Kill a Mockingbird
+bookName -             To Kill a Mockingbird
 
-genre - Fiction
+genre -                Fiction
 
-authorName - Harper Lee
+authorName -           Harper Lee
 
-ISBN - 9780060935467
+ISBN -                 9780060935467
 
-rate - 4.9
+rate -                 4.9
 
-price - 300
+price -                300
 
-image - postman-cloud:///1ef71ad2-b7b3-4370-834a-9db0f01e9412
+image -                postman-cloud:///1ef71ad2-b7b3-4370-834a-9db0f01e9412
 
-1. List all Books
+# 3.2 List all Books
 
 method : get
 
@@ -183,7 +181,7 @@ description: lists all the books uploaded in the library by this route
 
 no required inputs
 
-1. update book
+# 3.3 update book
 
 method : put
 
@@ -209,7 +207,7 @@ price:400
 
 }
 
-1. Delete book
+# 3.4 Delete book
 
 method: Delete
 
@@ -219,9 +217,9 @@ description:url should contain book id created by user and only created user can
 
 no required inputs
 
-1. . cartRoutes
+# 4. cartRoutes
 
-1. add to cart
+# 4.1 add to cart
 
 method : post
 
@@ -239,7 +237,7 @@ required inputs :
 
 }
 
-1. list cart
+# 4.2 list cart
 
 method : get
 
@@ -249,7 +247,7 @@ description : gives the list of books present in your cart
 
 no  required inputs
 
-1. remove from cart
+# 4.3 remove from cart
 
 method : post
 
@@ -265,9 +263,9 @@ required inputs example :
 
 }
 
-1. orders
+# 5 orders
 
-1. create order
+# 5.1 create order
 
 method : Post
 
@@ -285,7 +283,7 @@ required inputs :
 
 }
 
-1. cancel order
+# 5.2 cancel order
 
 method : post
 
@@ -301,7 +299,7 @@ required inputs example:
 
 }
 
-1. Update the order details
+# 5.3 Update the order details
 
 method:put
 
@@ -323,7 +321,7 @@ required inputs ex :
 
 }
 
-1. list the orders
+# 5.4 list the orders
 
 method : get
 
@@ -333,9 +331,9 @@ description: list the all order
 
 no required inputs
 
-1. search Bar
+# 6. search Bar
 
-1. search Bar
+# 6.1 search Bar
 
 method: post
 
