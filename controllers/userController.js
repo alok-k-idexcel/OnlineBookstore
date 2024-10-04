@@ -22,34 +22,34 @@ exports.listUsers = async (req, res) => {
 exports.updateUser = async (req, res) => {
   const { name, phone, address, password, confirmPassword} = req.body;
 
-  //   // Allowed fields
-  //   const allowedFields = ['name', 'phone', 'address', 'password', 'confirmPassword'];
+    // Allowed fields
+    const allowedFields = ['name', 'phone', 'address', 'password', 'confirmPassword'];
 
-  //   // Get keys from request body
-  //   const requestBodyKeys = Object.keys(req.body);
+    // Get keys from request body
+    const requestBodyKeys = Object.keys(req.body);
 
-  //   // Check if all keys are allowed
-  //   const isValidUpdate = requestBodyKeys.every(key => allowedFields.includes(key));
+    // Check if all keys are allowed
+    const isValidUpdate = requestBodyKeys.every(key => allowedFields.includes(key));
 
-  //   if (!isValidUpdate) {
-  //       return res.status(400).json({ msg: "You can only update: name, phone, address, password, confirmPassword" });
-  //   }
-  // // verify password
-  // if (password !== confirmPassword) {
-  //   return res.status(400).json({ msg: "confirmPassword is not matching" });
-  // }
+    if (!isValidUpdate) {
+        return res.status(400).json({ msg: "You can only update: name, phone, address, password, confirmPassword" });
+    }
+  // verify password
+  if (password !== confirmPassword) {
+    return res.status(400).json({ msg: "confirmPassword is not matching" });
+  }
 
   // Validate password (at least 8 characters, one uppercase letter, one symbol)
-  // const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
-  // if (!passwordRegex.test(password)) {
-  //   return res.status(400).json({
-  //     msg: "Password must be at least 8 characters long, contain one uppercase letter, and one symbol",
-  //   });
-  // }
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
+  if (!passwordRegex.test(password)) {
+    return res.status(400).json({
+      msg: "Password must be at least 8 characters long, contain one uppercase letter, and one symbol",
+    });
+  }
 
-  // if (email) {
-  //   return res.status(404).json({ msg: "Email is not allowed to change" });
-  // }
+  if (email) {
+    return res.status(404).json({ msg: "Email is not allowed to change" });
+  }
 
   const userId = Object.values(req.user)[0].id;
   // console.log(userId); DBug
