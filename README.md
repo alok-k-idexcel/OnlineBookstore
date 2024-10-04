@@ -43,8 +43,8 @@ JWT\_SECRET
 |   |-- userModel.js <br>
 |   |-- bookModel.js <br>
 |-- /routes <br>
-    |-- authRoutes.js <br>
-    |-- bookRoutes.js <br>
+******|-- authRoutes.js <br>
+******|-- bookRoutes.js <br>
 
 
 # follow the following routes to explore the applications make sure you have postMan downloaded to test the following routes
