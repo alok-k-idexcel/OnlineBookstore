@@ -28,23 +28,23 @@ JWT\_SECRET
 
 /project-root <br>
 |-- .env <br>
-|-- .gitignore
-|-- package.json
-|-- app.js
-|-- server.js
-|-- /config
-|   |-- config.js
-|-- /controllers
-|   |-- authController.js
-|   |-- bookController.js
-|-- /middleware
-|   |-- authMiddleware.js
-|-- /models
-|   |-- userModel.js
-|   |-- bookModel.js
-|-- /routes
-    |-- authRoutes.js
-    |-- bookRoutes.js
+|-- .gitignore <br>
+|-- package.json <br>
+|-- app.js <br>
+|-- server.js <br>
+|-- /config <br>
+|   |-- config.js <br>
+|-- /controllers <br>
+|   |-- authController.js <br>
+|   |-- bookController.js <br>
+|-- /middleware <br>
+|   |-- authMiddleware.js <br>
+|-- /models <br>
+|   |-- userModel.js <br>
+|   |-- bookModel.js <br>
+|-- /routes <br>
+    |-- authRoutes.js <br>
+    |-- bookRoutes.js <br>
 
 
 # follow the following routes to explore the applications make sure you have postMan downloaded to test the following routes
