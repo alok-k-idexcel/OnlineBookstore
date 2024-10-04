@@ -1,0 +1,142 @@
+[
+  {
+    "bookName": "The Great Gatsby",
+    "genre": "Fiction",
+    "authorName": "F. Scott Fitzgerald",
+    "ISBN": "9780743273565",
+    "rate": 4.5
+  },
+  {
+    "bookName": "To Kill a Mockingbird",
+    "genre": "Fiction",
+    "authorName": "Harper Lee",
+    "ISBN": "9780060935467",
+    "rate": 4.9
+  },
+  {
+    "bookName": "1984",
+    "genre": "Dystopian",
+    "authorName": "George Orwell",
+    "ISBN": "9780451524935",
+    "rate": 4.8
+  },
+  {
+    "bookName": "Moby Dick",
+    "genre": "Adventure",
+    "authorName": "Herman Melville",
+    "ISBN": "9781503280786",
+    "rate": 4.2
+  },
+  {
+    "bookName": "Pride and Prejudice",
+    "genre": "Romance",
+    "authorName": "Jane Austen",
+    "ISBN": "9780141199078",
+    "rate": 4.7
+  },
+  {
+    "bookName": "The Catcher in the Rye",
+    "genre": "Fiction",
+    "authorName": "J.D. Salinger",
+    "ISBN": "9780316769488",
+    "rate": 4.3
+  },
+  {
+    "bookName": "The Hobbit",
+    "genre": "Fantasy",
+    "authorName": "J.R.R. Tolkien",
+    "ISBN": "9780547928227",
+    "rate": 4.8
+  },
+  {
+    "bookName": "Fahrenheit 451",
+    "genre": "Dystopian",
+    "authorName": "Ray Bradbury",
+    "ISBN": "9781451673319",
+    "rate": 4.6
+  },
+  {
+    "bookName": "War and Peace",
+    "genre": "Historical Fiction",
+    "authorName": "Leo Tolstoy",
+    "ISBN": "9780199232765",
+    "rate": 4.4
+  },
+  {
+    "bookName": "The Odyssey",
+    "genre": "Epic",
+    "authorName": "Homer",
+    "ISBN": "9780140268867",
+    "rate": 4.5
+  },
+  {
+    "bookName": "Brave New World",
+    "genre": "Science Fiction",
+    "authorName": "Aldous Huxley",
+    "ISBN": "9780060850524",
+    "rate": 4.6
+  },
+  {
+    "bookName": "The Iliad",
+    "genre": "Epic",
+    "authorName": "Homer",
+    "ISBN": "9780140275360",
+    "rate": 4.5
+  },
+  {
+    "bookName": "Crime and Punishment",
+    "genre": "Philosophical Fiction",
+    "authorName": "Fyodor Dostoevsky",
+    "ISBN": "9780486415871",
+    "rate": 4.7
+  },
+  {
+    "bookName": "Frankenstein",
+    "genre": "Horror",
+    "authorName": "Mary Shelley",
+    "ISBN": "9780486282114",
+    "rate": 4.4
+  },
+  {
+    "bookName": "The Lord of the Rings",
+    "genre": "Fantasy",
+    "authorName": "J.R.R. Tolkien",
+    "ISBN": "9780544003415",
+    "rate": 4.9
+  },
+  {
+    "bookName": "Anna Karenina",
+    "genre": "Romance",
+    "authorName": "Leo Tolstoy",
+    "ISBN": "9780143035008",
+    "rate": 4.6
+  },
+  {
+    "bookName": "The Alchemist",
+    "genre": "Adventure",
+    "authorName": "Paulo Coelho",
+    "ISBN": "9780061122415",
+    "rate": 4.8
+  },
+  {
+    "bookName": "Don Quixote",
+    "genre": "Adventure",
+    "authorName": "Miguel de Cervantes",
+    "ISBN": "9780060934347",
+    "rate": 4.4
+  },
+  {
+    "bookName": "Dracula",
+    "genre": "Gothic Fiction",
+    "authorName": "Bram Stoker",
+    "ISBN": "9780486411095",
+    "rate": 4.5
+  },
+  {
+    "bookName": "The Picture of Dorian Gray",
+    "genre": "Philosophical Fiction",
+    "authorName": "Oscar Wilde",
+    "ISBN": "9780141439570",
+    "rate": 4.7
+  }
+]
