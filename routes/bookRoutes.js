@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   addBook,
+  addManyBooks,
   listBooks,
   updateBook,
   deleteBook,
@@ -12,6 +13,9 @@ const uploadMiddleware = require("../middleware/uploadMiddleware.js");
 
 // Route to add a book
 router.post("/book", authMiddleware, uploadMiddleware.single("image"), addBook);
+
+// Route to Add Multiple books 
+router.post("/book/many",authMiddleware,addManyBooks)
 
 // Route to list all books (for all users)
 router.get("/books", authMiddleware, listBooks);

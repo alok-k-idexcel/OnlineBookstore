@@ -135,54 +135,49 @@ exports.verifyOTP = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
-  // Validate input
   if (!email || !password) {
     return res.status(400).json({ msg: "Email and password are required" });
   }
 
   try {
-    // Check if user exists
+    // Find the user by email
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ msg: "User does not exist" });
     }
 
-    // Compare passwords
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (isMatch) {
-      // Create and return JWT
-      const payload = {
-        user: {
-          id: user.id,
-          email: user.email,
-        },
-      };
-      const token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: "1h",
-      });
-
-      // Generate admin token if the user is an admin
-      let adminToken = null;
-      if (user.admin) {
-        adminToken = jwt.sign(
-          { id: user._id, role: "admin" },
-          process.env.JWT_SECRET
-          // { expiresIn: "1h" }
-        );
-      }
-
-      // Set tokens in cookies
-      res.cookie("token", token);
-      if (adminToken) {
-        res.cookie("adminToken", adminToken);
-      }
-
-      return res.status(200).json({ msg: "Login Completed" });
-    } else {
+    // Use the comparePassword method from the schema
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
       return res.status(400).json({ msg: "Invalid credentials" });
     }
+
+    // Create JWT token
+    const payload = {
+      user: {
+        id: user.id,
+        email: user.email,
+      },
+    };
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+    // If user is admin, generate admin token
+    let adminToken = null;
+    if (user.admin) {
+      adminToken = jwt.sign({ id: user._id, role: "admin" }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
+    }
+
+    // Set tokens in cookies
+    res.cookie("token", token);
+    if (adminToken) {
+      res.cookie("adminToken", adminToken);
+    }
+
+    return res.status(200).json({ msg: "Login successful" });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ msg: "Server error" });
+    res.status(500).json({ msg: "Server error" });
   }
 };

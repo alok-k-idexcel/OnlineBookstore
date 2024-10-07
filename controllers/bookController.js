@@ -49,6 +49,67 @@ exports.addBook = async (req, res) => {
   }
 };
 
+// Add multiple books (admin only)
+exports.addManyBooks = async (req, res) => {
+  const { books } = req.body;
+
+  // Ensure books is an array
+  if (!Array.isArray(books) || books.length === 0) {
+    return res.status(400).json({ msg: "Invalid input. 'books' should be an array with at least one book." });
+  }
+
+  // Validate required fields for each book
+  for (const book of books) {
+    const { genre, authorName, bookName, ISBN, price } = book;
+    if (!genre || !authorName || !bookName || !ISBN || !price) {
+      return res.status(400).json({ msg: "All fields are required for each book: genre, authorName, bookName, ISBN, price" });
+    }
+  }
+
+  // Check if user is admin
+  const userDetails = await User.findById(Object.values(req.user)[0].id);
+  if (!userDetails || !userDetails.admin) {
+    return res.status(403).json({ msg: "Access denied. Admins only." });
+  }
+
+  try {
+    const newBooks = [];
+
+    for (const book of books) {
+      const { genre, authorName, bookName, ISBN, rate, price } = book;
+
+      // Check if an image was uploaded and send a temporary message
+      if (req.file) {
+        return res.status(400).json({ msg: "Images cannot be uploaded while adding multiple books. Please try again without images." });
+      }
+
+      // Create and save the new book
+      const newBook = new Book({
+        genre,
+        authorName,
+        bookName,
+        ISBN,
+        rate,
+        price,
+      });
+
+      await newBook.save();
+      newBooks.push(newBook._id);
+    }
+
+    // Add books to the admin user's list
+    userDetails.myBooks.push(...newBooks);
+    await userDetails.save();
+    res.status(201).json({ msg: "Books added", books: newBooks });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Server error", error: error.message });
+  }
+};
+
+
+
+
 // List all books (accessible to all users)
 exports.listBooks = async (req, res) => {
   try {
