@@ -16,7 +16,7 @@ S4. Open Postman app and run given routes <br>
 # 1.1 SignUp <br>
 Method : POST <br>
 URL : http://localhost:5000/api/auth/signup <br>
-Description: Creates a user and sends OTP to verify email. OTP is generated using the Math method (6 digits). <br>
+Description: Creates a user and sends OTP to verify email. OTP is generated using the Math method (6 digits). <br> Note: Admin Status cannot be updated once set but can be updated manually <br>
 Required Inputs Example: <br>
 { <br>
   "name": "alok Kumar", <br>
