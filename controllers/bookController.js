@@ -9,7 +9,7 @@ exports.addBook = async (req, res) => {
 
   // Validate required fields
   if (!genre || !authorName || !bookName || !ISBN || !price) {
-    return res.status(400).json({ msg: "All fields are required." });
+    return res.status(400).json({ msg: "All fields are required. genre, authorName, bookName, ISBN, price" });
   }
 
   const userDetails = await User.findById(Object.values(req.user)[0].id);
