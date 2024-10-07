@@ -1,3 +1,16 @@
+# NodeJS/Express Application <br>
+# Topic : BookStore Application <br>
+
+# Tools Required 
+Postman 
+NodeJs
+
+# steps To Run
+S1. Extract the Downloaded Zip File / clone the repo
+S2. npm i / npm install
+S3. npm run dev
+S4. Open Postman app and run given routes 
+
 # 1. Auth Routes <br>
 
 # 1.1 SignUp <br>
