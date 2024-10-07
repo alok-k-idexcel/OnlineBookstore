@@ -1,5 +1,4 @@
 const User = require("../models/User.js");
-const bcrypt = require("bcryptjs");
 
 // List all users
 exports.listUsers = async (req, res) => {
@@ -24,11 +23,19 @@ exports.updateUser = async (req, res) => {
   const { name, phone, address, password, confirmPassword, email } = req.body;
 
   // Allowed fields
-  const allowedFields = ["name", "phone", "address", "password", "confirmPassword"];
+  const allowedFields = [
+    "name",
+    "phone",
+    "address",
+    "password",
+    "confirmPassword",
+  ];
 
   // Check if all keys are allowed
   const requestBodyKeys = Object.keys(req.body);
-  const isValidUpdate = requestBodyKeys.every((key) => allowedFields.includes(key));
+  const isValidUpdate = requestBodyKeys.every((key) =>
+    allowedFields.includes(key)
+  );
 
   if (!isValidUpdate) {
     return res.status(400).json({
@@ -81,7 +88,6 @@ exports.updateUser = async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 };
-
 
 // Delete user
 exports.deleteUser = async (req, res) => {
