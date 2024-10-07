@@ -20,7 +20,7 @@ exports.listUsers = async (req, res) => {
 
 // update the User
 exports.updateUser = async (req, res) => {
-  const { name, phone, address, password, confirmPassword } = req.body;
+  const { name, phone, address, password, confirmPassword, email} = req.body;
 
   // Allowed fields
   const allowedFields = [
@@ -40,23 +40,23 @@ exports.updateUser = async (req, res) => {
   );
 
   if (!isValidUpdate) {
-    return res
-      .status(400)
-      .json({
-        msg: "You can only update: name, phone, address, password, confirmPassword",
-      });
-  }
-  // verify password
-  if (password !== confirmPassword) {
-    return res.status(400).json({ msg: "confirmPassword is not matching" });
-  }
-
-  // Validate password (at least 8 characters, one uppercase letter, one symbol)
-  const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
-  if (!passwordRegex.test(password)) {
     return res.status(400).json({
-      msg: "Password must be at least 8 characters long, contain one uppercase letter, and one symbol",
+      msg: "You can only update: name, phone, address, password, confirmPassword",
     });
+  }
+  if (password) {
+    // verify password
+    if (password !== confirmPassword) {
+      return res.status(400).json({ msg: "confirmPassword is not matching" });
+    }
+
+    // Validate password (at least 8 characters, one uppercase letter, one symbol)
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({
+        msg: "Password must be at least 8 characters long, contain one uppercase letter, and one symbol",
+      });
+    }
   }
 
   if (email) {
