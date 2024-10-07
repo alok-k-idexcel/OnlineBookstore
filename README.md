@@ -21,7 +21,7 @@ Required Inputs Example: <br>
 { <br>
   "name": "alok Kumar", <br>
   "email": "alokkumar77954@gmail.com", <br>
-  "phone": "77954506661", <br>
+  "phone": "1234567890", <br>
   "password": "Root.@123", <br>
   "confirmPassword": "Root.@123", <br>
   "admin": false <br>
@@ -34,7 +34,7 @@ Description: Verifies OTP with a maximum of 5 attempts. If the OTP is not correc
 Required Inputs Example: <br>
 { <br>
   "email": "alokkumar77954@gmail.com", <br>
-  "otp": "962420" <br>
+  "otp": "123456" <br>
 } <br><br>
 
 # 1.3 Login <br>
