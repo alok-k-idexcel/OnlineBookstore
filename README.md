@@ -111,6 +111,33 @@ Method: DELETE <br>
 URL: http://localhost:5000/api/books/book/:bookid <br>
 Description: Deletes a book. Only the user who created the book can delete it. No input required. <br><br>
 
+# 3.5 Add Multiple Books <br>
+Method: POST <br>
+URL: http://localhost:5000/api/books/book/many <br>
+Description: Used to Add Multiple books using the `bookModel`. images are currently not Supported. <br>
+Required Inputs Example: <br>
+{ <br>
+  "books": [ <br>
+    { <br>
+      "bookName": "The Great Gatsby", <br>
+      "genre": "Fiction", <br>
+      "authorName": "F. Scott Fitzgerald", <br>
+      "ISBN": "9780743273565", <br>
+      "rate": 4.5, <br>
+      "price": 10.99 <br>
+    }, <br>
+    { <br>
+      "bookName": "To Kill a Mockingbird", <br>
+      "genre": "Fiction", <br>
+      "authorName": "Harper Lee", <br>
+      "ISBN": "9780060935467", <br>
+      "rate": 4.9, <br>
+      "price": 12.49 <br>
+    } <br>
+    
+  ] <br>
+} <br>
+
 # 4. Cart Routes <br>
 
 # 4.1 Add to Cart <br>
