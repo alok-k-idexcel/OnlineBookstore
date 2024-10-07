@@ -1,5 +1,5 @@
 const User = require("../models/User.js");
-
+const bcrypt = require("bcryptjs")
 // List all users
 exports.listUsers = async (req, res) => {
   const userDetails = await User.findById(Object.values(req.user)[0].id);
@@ -97,9 +97,15 @@ exports.updateUser = async (req, res) => {
       user.password = await bcrypt.hash(password, salt);
     }
 
+    // only details to be displayed
+    const UserName = user.name || name
+    const UserPhone = user.phone || phone
+    const UserAddress = user.address || address
+    const UserDetails = {UserName,UserPassword: password ? "Password Updated" : "your current password",UserPhone,UserAddress} 
+
     // Save the updated user details
     await user.save();
-    res.status(200).json({ msg: "User updated successfully", user });
+    res.status(200).json({ msg: "User updated successfully", UserDetails });
   } catch (error) {
     console.error(error);
     res.status(500).json({ msg: "Server error" });
